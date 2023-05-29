@@ -10,14 +10,14 @@ class DokterController extends Controller
     public function index()
     {
         $dokters = Dokter::getAll();
-        return view('dokter.index', [
+        return view('admin.dokter.index', [
             'dokters' => $dokters
         ]);
     }
 
     public function create()
     {
-        return view('dokter.create');
+        return view('admin.dokter.create');
     }
 
     public function store(Request $request)
