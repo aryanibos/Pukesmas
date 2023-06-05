@@ -9,7 +9,7 @@ class DokterController extends Controller
 {
     public function index()
     {
-        $dokters = Dokter::getAll();
+        $dokters = Dokter::all();
         return view('admin.dokter.index', [
             'dokters' => $dokters
         ]);
@@ -22,9 +22,15 @@ class DokterController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
-        // dokter::validate($request);
-        // dokter::saved($request);
-        return redirect('/dokter');
+        // dd($request->all());
+        $validate = $request->validate([
+            'nama' => 'required',
+            'spesialis' => 'required',
+            'alamat' => 'required',
+            'telp' => 'required',
+        ]);
+
+        Dokter::create($validate);
+        return redirect()->route('dokter');
     }
 }
