@@ -32,7 +32,17 @@
                     <tr>
                         <td>{{ $iteration++ }}</td>
                         <td>{{ $item['nama'] }}</td>
-                        <td>{{ $item['jk'] }}</td>
+                        <td>
+                            {{-- Cara 1 Melakukan Kondisi Satu line
+                            {{ $item['jk'] == 'L' ? 'Laki-laki' : 'Perempuan'  }} --}}
+
+                            {{-- Cara 2 Melakukan Kondisi satu atau lebih --}}
+                            @if ($item['jk'] == 'L')
+                                Laki-laki
+                            @else
+                                Perempuan
+                            @endif
+                        </td>
                         <td>{{ $item['tgl_lahir'] }}</td>
                         <td>{{ $item['alamat'] }}</td>
                         <td>{{ $item['telp'] }}</td>
