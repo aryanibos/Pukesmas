@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class PasienController extends Controller
 {
-    // buatkan construct
-    public $pasien;
-    public function __construct()
-    {
-        $this->pasien = new Pasien();
-    }
+    // // buatkan construct
+    // public $pasien;
+    // public function __construct()
+    // {
+    //     $this->pasien = new Pasien();
+    // }
 
     public function index()
     {
@@ -34,25 +34,25 @@ class PasienController extends Controller
         // // Pasien::validate($request);
         // // Pasien::saved($request);
         $validate = $request->validate([
-            'nama' => 'required',
+            'nama' => 'required | min:3 | max:50',
             'jk' => 'required',
-            'tgl_lahir' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
+            'tgl_lahir' => 'required | date',
+            'alamat' => 'required | min:3 | max:100',
+            'telp' => 'required | numeric | digits_between:10,13',
         ]);
 
-        // Pasien::create($validate);
+        Pasien::create($validate);
 
-        $this->pasien->nama = $request->nama;
-        $this->pasien->jk = $request->jk;
-        $this->pasien->tgl_lahir = $request->tgl_lahir;
-        $this->pasien->alamat = $request->alamat;
-        $this->pasien->telp = $request->telp;
+        // $this->pasien->nama = $request->nama;
+        // $this->pasien->jk = $request->jk;
+        // $this->pasien->tgl_lahir = $request->tgl_lahir;
+        // $this->pasien->alamat = $request->alamat;
+        // $this->pasien->telp = $request->telp;
 
-        $this->pasien->save();
+        // $this->pasien->save();
 
         // redirect
-        return redirect('/pasien');
+        return redirect('/pasien')->with('success', 'Data Pasien Berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -65,31 +65,35 @@ class PasienController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $validate = $request->validate([
-            'nama' => 'required',
+            'nama' => 'required | min:3 | max:50',
             'jk' => 'required',
-            'tgl_lahir' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
+            'tgl_lahir' => 'required | date',
+            'alamat' => 'required | min:3 | max:100',
+            'telp' => 'required | numeric | digits_between:10,13',
         ]);
 
-        $pasien = Pasien::find($id);
-        $pasien->nama = $request->nama;
-        $pasien->jk = $request->jk;
-        $pasien->tgl_lahir = $request->tgl_lahir;
-        $pasien->alamat = $request->alamat;
-        $pasien->telp = $request->telp;
+        Pasien::find($id)->update($validate);
 
-        $pasien->save();
+        // $this->pasien->nama = $request->nama;
+        // $this->pasien->jk = $request->jk;
+        // $this->pasien->tgl_lahir = $request->tgl_lahir;
+        // $this->pasien->alamat = $request->alamat;
+        // $this->pasien->telp = $request->telp;
 
-        return redirect('/pasien');
+        // $this->pasien->save();
+
+        // redirect
+        return redirect('/pasien')->with('success', 'Data Pasien Berhasil diupdate');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $pasien = Pasien::find($id);
-        $pasien->delete();
+        // Pasien::find($request->id)->delete();
 
-        return redirect('pasien.hapus')->with('success', 'Data berhasil dihapus');
+        Pasien::destroy($request->id);
+
+        return redirect('/pasien')->with('success', 'Data Pasien Berhasil dihapus');
     }
 }
