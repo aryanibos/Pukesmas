@@ -42,9 +42,9 @@ Route::post("/pasien", [PasienController::class, 'store'])->name('pasien.simpan'
 // Menampilkan form untuk mengedit data pasien
 Route::get("/pasien/edit/{id}", [PasienController::class, 'edit'])->name('pasien.edit');
 // Menyimpan data pasien yang diedit
-Route::put("/pasien/edit/{id}", [PasienController::class, 'update'])->name('pasien.update');
+Route::put("/pasien/update/{id}", [PasienController::class, 'update'])->name('pasien.update');
 // Menghapus data pasien
-Route::delete("/pasien/delete/{id}", [PasienController::class, 'destroy'])->name('pasien.hapus');
+Route::delete("/pasien/delete/", [PasienController::class, 'destroy'])->name('pasien.hapus');
 
 // Halaman Dokter
 // Menampilkan data dokter
