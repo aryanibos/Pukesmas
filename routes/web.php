@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\RegisController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +54,15 @@ Route::get("/dokter", [DokterController::class, 'index'])->name('dokter');
 Route::get("/dokter/create", [DokterController::class, 'create'])->name('dokter.create');
 // Menyimpan data dokter yang baru
 Route::post("/dokter", [DokterController::class, 'store'])->name('dokter.simpan');
+// Menampilkan form untuk mengedit data dokter
+Route::get("/dokter/edit/{id}", [DokterController::class, 'edit'])->name('dokter.edit');
+// Menyimpan data dokter yang diedit
+Route::put("/dokter/update/{id}", [DokterController::class, 'update'])->name('dokter.update');
+// Menghapus data dokter
+Route::delete("/dokter/delete/", [DokterController::class, 'destroy'])->name('dokter.hapus');
 
 // Route::get('/form', [RegisController::class, 'index'])->name('regist');
 // Route::post('/output', [RegisController::class, 'store'])->name('regist.simpan');
+
+// halaman Auth (Login, Register, Logout)
+Auth::routes();
