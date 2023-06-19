@@ -12,13 +12,21 @@ class Pasien extends Model
     // Cara 2 Dengan Database
     protected $table = 'pasiens';
 
+    protected $guarded = ['id'];
+
     protected $fillable = [
         'nama',
         'jk',
         'tgl_lahir',
         'alamat',
         'telp',
+        'dokter_id'
     ];
+
+    public function dokter()
+    {
+        return $this->belongsTo(Dokter::class);
+    }
 
     // Cara 1 Tanpa Database
     // public static function getAll()

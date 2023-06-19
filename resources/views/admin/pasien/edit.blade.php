@@ -66,6 +66,19 @@
                 @enderror
             </div>
 
+            <div class="form-group mt-3">
+                <label for="dokter_id">Nama Dokter</label>
+                <select class="form-control @error('dokter_id') is-invalid @enderror" name="dokter_id">
+                    @foreach ($dokters as $item)
+                        <option value="{{ $item->id }}" {{ $pasien->dokter_id == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
+                    @endforeach
+                </select>
+                @error('dokter_id')
+                    <div class="text-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+
             <div class="form-group mt-3 d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
