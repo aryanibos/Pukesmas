@@ -16,6 +16,11 @@ class Dokter extends Model
         'alamat',
         'telp'
     ];
+
+    public function pasien()
+    {
+        return $this->hasMany(Pasien::class);
+    }
     // public static function getAll()
     // {
     //     return [

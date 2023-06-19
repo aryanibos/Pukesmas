@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokter;
 use App\Models\Pasien;
 
 use Illuminate\Http\Request;
 
 class PasienController extends Controller
 {
-    // // buatkan construct
+    // // buatkan construct menggunakan cara yang kedua
     // public $pasien;
     // public function __construct()
     // {
@@ -25,7 +26,10 @@ class PasienController extends Controller
 
     public function create()
     {
-        return view('admin.pasien.create');
+        $dokters = Dokter::all();
+        return view('admin.pasien.create', [
+            'dokters' => $dokters
+        ]);
     }
 
     public function store(Request $request)
@@ -39,6 +43,7 @@ class PasienController extends Controller
             'tgl_lahir' => 'required | date',
             'alamat' => 'required | min:3 | max:100',
             'telp' => 'required | numeric | digits_between:10,13',
+            'dokter_id' => 'required',
         ]);
 
         Pasien::create($validate);
@@ -58,8 +63,10 @@ class PasienController extends Controller
     public function edit($id)
     {
         $pasien = Pasien::find($id);
+        $dokters = Dokter::all();
         return view('admin.pasien.edit', [
-            'pasien' => $pasien
+            'pasien' => $pasien,
+            'dokters' => $dokters
         ]);
     }
 
@@ -72,6 +79,7 @@ class PasienController extends Controller
             'tgl_lahir' => 'required | date',
             'alamat' => 'required | min:3 | max:100',
             'telp' => 'required | numeric | digits_between:10,13',
+            'dokter_id' => 'required',
         ]);
 
         Pasien::find($id)->update($validate);

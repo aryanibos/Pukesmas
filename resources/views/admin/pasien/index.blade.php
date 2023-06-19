@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-responsive table-hover">
             <thead>
                 <tr>
                     <th>No</th>
@@ -23,6 +23,7 @@
                     <th>Tanggal Lahir</th>
                     <th>Alamat</th>
                     <th>No. Telp</th>
+                    <th>Nama Dokter</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -46,6 +47,9 @@
                         <td>{{ $item['tgl_lahir'] }}</td>
                         <td>{{ $item['alamat'] }}</td>
                         <td>{{ $item['telp'] }}</td>
+                        <td>
+                            {{ $item->dokter->nama }}
+                        </td>
                         <td>
                             <a href="{{ route('pasien.edit', $item['id']) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('pasien.hapus') }}" method="POST" class="d-inline">
