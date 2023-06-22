@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('tgl_lahir');
             $table->text('alamat');
             $table->string('telp');
-            $table->integer('dokter_id');
+            $table->bigInteger('dokter_id');
             $table->timestamps();
         });
     }

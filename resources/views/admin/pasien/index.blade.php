@@ -3,9 +3,11 @@
     <div class="card card-body">
         <h1>Daftar Pasien</h1>
         <br>
+       @if ( Auth::user()->role == 'admin')
         <div class="col-md-4">
             <a href="{{ route('pasien.create') }}" class="btn btn-primary">+ Tambah Pasien</a>
         </div>
+       @endif
         <hr>
 
         @if (session('success'))
@@ -51,14 +53,18 @@
                             {{ $item->dokter->nama }}
                         </td>
                         <td>
-                            <a href="{{ route('pasien.edit', $item['id']) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('pasien.hapus') }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('delete')
-                                <input type="hidden" name="id" value="{{ $item['id'] }}">
-                                <button class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</button>
-                            </form>
+                           @if ( Auth::user()->role == 'admin')
+                                <a href="{{ route('pasien.edit', $item['id']) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('pasien.hapus') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="hidden" name="id" value="{{ $item['id'] }}">
+                                    <button class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</button>
+                                </form>
+                            @else
+                                -
+                           @endif
                         </td>
                 @endforeach
             </tbody>

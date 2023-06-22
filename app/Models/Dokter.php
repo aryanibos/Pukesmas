@@ -14,7 +14,7 @@ class Dokter extends Model
         'nama',
         'spesialis',
         'alamat',
-        'telp'
+        'telp',
     ];
 
     public function pasien()
