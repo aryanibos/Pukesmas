@@ -30,13 +30,7 @@ Route::post('/form', function () {
     return view('form-regis.form');
 });
 
-Route::group(['middleware' => ['auth']], function () {
-    // Halaman Dashboard
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Halaman Pasien
-    // Menampilkan data pasien
-    Route::get("/pasien", [PasienController::class, 'index'])->name('pasien');
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
     // Menampilkan form untuk menambahkan data pasien
     Route::get("/pasien/create", [PasienController::class, 'create'])->name('pasien.create');
     // Menyimpan data pasien yang baru
@@ -49,8 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete("/pasien/delete/", [PasienController::class, 'destroy'])->name('pasien.hapus');
 
     // Halaman Dokter
-    // Menampilkan data dokter
-    Route::get("/dokter", [DokterController::class, 'index'])->name('dokter');
+
     // Menampilkan form untuk menambahkan data dokter
     Route::get("/dokter/create", [DokterController::class, 'create'])->name('dokter.create');
     // Menyimpan data dokter yang baru
@@ -61,6 +54,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put("/dokter/update/{id}", [DokterController::class, 'update'])->name('dokter.update');
     // Menghapus data dokter
     Route::delete("/dokter/delete/", [DokterController::class, 'destroy'])->name('dokter.hapus');
+});
+
+
+Route::group(['middleware' => ['auth']], function () {
+    // Halaman Dashboard
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Halaman Pasien
+    // Menampilkan data pasien
+    Route::get("/pasien", [PasienController::class, 'index'])->name('pasien');
+
+    // Menampilkan data dokter
+    Route::get("/dokter", [DokterController::class, 'index'])->name('dokter');
 });
 
 // Route::get('/form', [RegisController::class, 'index'])->name('regist');
